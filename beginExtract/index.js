@@ -8,6 +8,8 @@ admin.initializeApp({
   });
   
 const db = admin.firestore();
+const FieldValue = admin.firestore.FieldValue;
+
   
 module.exports = async function (context, myTimer) {
     context.log('Function triggered')
@@ -22,6 +24,7 @@ module.exports = async function (context, myTimer) {
     .then(async(data) => {
         const firebaseRes = await db.collection('Jobs').add({
             jobNumber: data.jobid,
+            timestamp: FieldValue.serverTimestamp(),
         });
     })
     .catch((err)=> console.log(err));
